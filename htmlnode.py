@@ -11,7 +11,7 @@ class HTMLNode():
     def props_to_html(self):
         final_string = ""
         for key, value in self.props.items():
-            final_string += f"{key}=\"{value} "
+            final_string += f"{key}=\"{value}\" "
         final_string = final_string[:-1]
         return final_string
 
@@ -20,13 +20,12 @@ class HTMLNode():
 
 
 class LeafNode(HTMLNode):
-    def __init__(self, tag: str = None, value: str = None, props: dict = None):
-        super().__init__(tag, value)
-        self.props = props
+    def __init__(self, tag: str = None, value: str = None, children: list = None, props: dict = None):
+        super().__init__(tag, value, None, props)
 
     def to_html(self):
         if not self.value:
-            raise ValueError
+            raise ValueError("must have a value")
         
         if not self.tag:
             return f"{self.value}"
@@ -35,3 +34,21 @@ class LeafNode(HTMLNode):
             return f"<{self.tag}>{self.value}</{self.tag}>"
         else:
             return f"<{self.tag} {self.props_to_html()}>{self.value}</{self.tag}>"
+
+
+class ParentNode(HTMLNode):
+    def __init__(self, tag: str = None, value: str = None, children: list = None, props: dict = None):
+        super().__init__(tag, None, children, props)
+    
+    def to_html(self):
+        if not self.tag:
+            raise ValueError("must have a tag")
+        
+        if not self.children:
+            raise ValueError("must have children")
+        
+        html_string = ""
+        for kid in self.children:
+            html_string += kid.to_html()
+        
+        return f"<{self.tag}>{html_string}</{self.tag}>"
