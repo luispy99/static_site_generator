@@ -3,3 +3,5 @@ src/test_textnode.py
 test_htmlnode.py
 src/test_main.py
 src/test_delimiter.py
+src/test_extract_markdown.py
+src/test_split_nodes.py

@@ -11,7 +11,7 @@ from htmlnode import LeafNode
 #    test = TextNode("esto es el texto", "italic", "https:el_internet.com")
 #    print(test)
 
-
+# converts string to nodes
 def text_node_to_html_node(text_node: TextNode):
     if text_node.text_type == TextType.NORMAL:
         return LeafNode(None, text_node.text)

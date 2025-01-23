@@ -8,6 +8,7 @@ class HTMLNode():
     def to_html(self):
         raise NotImplementedError
 
+    # converts the prop to a single string
     def props_to_html(self):
         final_string = ""
         for key, value in self.props.items():
@@ -23,6 +24,7 @@ class LeafNode(HTMLNode):
     def __init__(self, tag: str = None, value: str = None, children: list = None, props: dict = None):
         super().__init__(tag, value, None, props)
 
+    # converts node to string
     def to_html(self):
         if not self.value:
             raise ValueError("must have a value")
@@ -40,6 +42,7 @@ class ParentNode(HTMLNode):
     def __init__(self, tag: str = None, value: str = None, children: list = None, props: dict = None):
         super().__init__(tag, None, children, props)
     
+    # put all children in a string
     def to_html(self):
         if not self.tag:
             raise ValueError("must have a tag")
